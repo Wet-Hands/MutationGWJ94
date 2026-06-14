@@ -37,7 +37,7 @@ window/stretch/mode="viewport"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/Todo_Manager/plugin.cfg", "res://addons/ambientcg/plugin.cfg", "res://addons/discord-rpc-gd/plugin.cfg", "res://addons/godotsteam/plugin.cfg")
+enabled=PackedStringArray("res://addons/Todo_Manager/plugin.cfg", "res://addons/ambientcg/plugin.cfg", "res://addons/discord-rpc-gd/plugin.cfg", "res://addons/godotsteam/plugin.cfg", "res://addons/gwj_countdown/plugin.cfg")
 
 [file_customization]
 
