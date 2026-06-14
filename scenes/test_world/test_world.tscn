@@ -1,0 +1,56 @@
+[gd_scene format=3 uid="uid://c5a2muvgbo41p"]
+
+[ext_resource type="Material" uid="uid://cg0b401okvr4w" path="res://assets/kenney_prototype_pack/materials/light/material_08.tres" id="1_hnis5"]
+[ext_resource type="PackedScene" uid="uid://cfmjrtdgjyiww" path="res://scenes/player_controller/player_character.tscn" id="2_4c7jm"]
+[ext_resource type="Material" uid="uid://ccgkll0d0n38v" path="res://assets/kenney_prototype_pack/materials/orange/material_09.tres" id="3_4c7jm"]
+[ext_resource type="Script" uid="uid://dl2vleij6qm43" path="res://scripts/classes/components/3d/dungeon_component3d.gd" id="4_70ebh"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_hnis5"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_4c7jm"]
+sky_material = SubResource("ProceduralSkyMaterial_hnis5")
+
+[sub_resource type="Environment" id="Environment_70ebh"]
+background_mode = 2
+sky = SubResource("Sky_4c7jm")
+tonemap_mode = 2
+glow_enabled = true
+
+[node name="TestWorld" type="Node3D" unique_id=1033996480]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1950128810]
+environment = SubResource("Environment_70ebh")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=3832406]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+shadow_enabled = true
+
+[node name="PlayerCharacter" parent="." unique_id=1179956342 instance=ExtResource("2_4c7jm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="CSGFloor" type="CSGCombiner3D" parent="." unique_id=79885695]
+use_collision = true
+
+[node name="CSGBox3D" type="CSGBox3D" parent="CSGFloor" unique_id=965902548]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+size = Vector3(30, 1, 30)
+material = ExtResource("1_hnis5")
+
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="." unique_id=579938288]
+use_collision = true
+
+[node name="CSGBox3D" type="CSGBox3D" parent="CSGCombiner3D" unique_id=432076386]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0.5, 5.5)
+size = Vector3(2, 1, 4)
+material = ExtResource("3_4c7jm")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="CSGCombiner3D" unique_id=1545883310]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0.5, 5.5)
+size = Vector3(2, 1, 4)
+material = ExtResource("3_4c7jm")
+
+[node name="DungeonComponent" type="Node3D" parent="." unique_id=654189024]
+script = ExtResource("4_70ebh")
+metadata/_custom_type_script = "uid://dl2vleij6qm43"

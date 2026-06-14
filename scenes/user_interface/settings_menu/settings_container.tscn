@@ -1,0 +1,70 @@
+[gd_scene format=3 uid="uid://bphnrscffr1qw"]
+
+[ext_resource type="Script" uid="uid://uannr1j7ucoa" path="res://scenes/user_interface/settings_menu/settings_container.gd" id="1_j5xfn"]
+
+[node name="SettingsContainer" type="VBoxContainer" unique_id=1758503230 node_paths=PackedStringArray("back_button")]
+script = ExtResource("1_j5xfn")
+back_button = NodePath("BackButton")
+
+[node name="GameTitle" type="Label" parent="." unique_id=858139894]
+layout_mode = 2
+text = "Daybuilt BaseGodotProject3D"
+horizontal_alignment = 1
+
+[node name="ContainerTitle" type="Label" parent="." unique_id=282630875]
+layout_mode = 2
+theme_override_font_sizes/font_size = 42
+text = "Settings Menu"
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=142877429]
+layout_mode = 2
+
+[node name="General" type="Button" parent="HBoxContainer" unique_id=187090126]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "General"
+
+[node name="Controls" type="Button" parent="HBoxContainer" unique_id=270400561]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Controls"
+
+[node name="Audio" type="Button" parent="HBoxContainer" unique_id=973980063]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Audio"
+
+[node name="Video" type="Button" parent="HBoxContainer" unique_id=1039289545]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Video"
+
+[node name="GeneralContainer" type="VBoxContainer" parent="." unique_id=2079376627]
+layout_mode = 2
+
+[node name="ControlsContainer" type="VBoxContainer" parent="." unique_id=1560806114]
+layout_mode = 2
+
+[node name="AudioContainer" type="VBoxContainer" parent="." unique_id=1386297214]
+layout_mode = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="AudioContainer" unique_id=792504646]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="AudioContainer/HBoxContainer2" unique_id=1198984390]
+layout_mode = 2
+text = "Master:"
+
+[node name="HSlider" type="HSlider" parent="AudioContainer/HBoxContainer2" unique_id=1540337594]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+
+[node name="VideoContainer" type="VBoxContainer" parent="." unique_id=1964172982]
+layout_mode = 2
+
+[node name="BackButton" type="Button" parent="." unique_id=1417232602]
+layout_mode = 2
+size_flags_vertical = 10
+text = "Return to Main Menu"
