@@ -17,6 +17,7 @@
 [ext_resource type="Theme" uid="uid://cw8h33xv1acv0" path="res://scenes/user_interface/dynamic_debug/dyn_debug.theme" id="12_vfo37"]
 [ext_resource type="Script" uid="uid://cvettagbosn47" path="res://scripts/classes/components/save_component.gd" id="15_rle0t"]
 [ext_resource type="Script" uid="uid://deue4g7pyxjfe" path="res://scenes/user_interface/pause_menu/pause_container.gd" id="17_2e7vo"]
+[ext_resource type="Theme" uid="uid://b6ervg8w45oc6" path="res://assets/main_theme.theme" id="17_352f5"]
 [ext_resource type="PackedScene" uid="uid://bphnrscffr1qw" path="res://scenes/user_interface/settings_menu/settings_container.tscn" id="18_qb57j"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_sxs1x"]
@@ -115,12 +116,16 @@ metadata/_custom_type_script = "uid://cvettagbosn47"
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1338374917]
 
 [node name="PanelContainer" type="PanelContainer" parent="CanvasLayer" unique_id=1933705333]
-offset_right = 383.0
-offset_bottom = 319.0
+offset_right = 168.0
+offset_bottom = 134.0
 theme = ExtResource("12_vfo37")
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/PanelContainer" unique_id=1552018989]
 layout_mode = 2
+theme_override_constants/margin_left = 6
+theme_override_constants/margin_top = 6
+theme_override_constants/margin_right = 6
+theme_override_constants/margin_bottom = 6
 
 [node name="DynDebug" type="VBoxContainer" parent="CanvasLayer/PanelContainer/MarginContainer" unique_id=2123346977]
 layout_mode = 2
@@ -136,7 +141,7 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme = ExtResource("12_vfo37")
+theme = ExtResource("17_352f5")
 theme_override_constants/margin_left = 300
 theme_override_constants/margin_top = 128
 theme_override_constants/margin_right = 300
@@ -149,6 +154,10 @@ layout_mode = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/PauseContainer/PanelContainer" unique_id=1861280741]
 layout_mode = 2
+theme_override_constants/margin_left = 6
+theme_override_constants/margin_top = 6
+theme_override_constants/margin_right = 6
+theme_override_constants/margin_bottom = 6
 
 [node name="MainContainer" type="VBoxContainer" parent="CanvasLayer/PauseContainer/PanelContainer/MarginContainer" unique_id=821645421]
 unique_name_in_owner = true
@@ -156,19 +165,15 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="CanvasLayer/PauseContainer/PanelContainer/MarginContainer/MainContainer" unique_id=1091779741]
 layout_mode = 2
-theme_override_font_sizes/font_size = 72
+theme_override_font_sizes/font_size = 24
 text = "Daybuilt BaseGodotProject3D"
 horizontal_alignment = 1
 
 [node name="Label2" type="Label" parent="CanvasLayer/PauseContainer/PanelContainer/MarginContainer/MainContainer" unique_id=2060704302]
 layout_mode = 2
-theme_override_font_sizes/font_size = 48
+theme_override_font_sizes/font_size = 18
 text = "Pause Menu"
 horizontal_alignment = 1
-
-[node name="Resume" type="Button" parent="CanvasLayer/PauseContainer/PanelContainer/MarginContainer/MainContainer" unique_id=880390491]
-layout_mode = 2
-text = "Resume"
 
 [node name="Settings" type="Button" parent="CanvasLayer/PauseContainer/PanelContainer/MarginContainer/MainContainer" unique_id=299468614]
 layout_mode = 2

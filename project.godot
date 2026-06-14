@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="Daybuilt BaseGodotProject3D"
+config/name="MutationGWJ94"
 run/main_scene="uid://bw7yfthex8us"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
@@ -27,11 +27,12 @@ AmbientCG="*uid://cnxneyd8ilml2"
 Network="*uid://d1mlvahjd4lhu"
 Discord="*uid://d3w1dv2a7d3re"
 SteamNetwork="*uid://cp2awgvvtxi5a"
+Settings="*uid://dr40otqtqhb71"
 
 [display]
 
-window/size/viewport_width=1920
-window/size/viewport_height=1280
+window/size/viewport_width=480
+window/size/viewport_height=333
 window/stretch/mode="viewport"
 
 [editor_plugins]
