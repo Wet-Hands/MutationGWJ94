@@ -7,6 +7,7 @@ extends Component
 ##
 
 @export var dyn_debug : Container
+@export var anim : AnimationPlayer
 
 @export var current_state : State
 var states : Dictionary[String, State]

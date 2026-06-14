@@ -7,14 +7,15 @@
 [ext_resource type="Script" uid="uid://cgg8v6mqlww17" path="res://scripts/classes/components/audio_component.gd" id="3_qcfe0"]
 [ext_resource type="Script" uid="uid://d37bkrw4sle3v" path="res://scripts/classes/components/statemachine/state_machine.gd" id="4_e0u4p"]
 [ext_resource type="Script" uid="uid://cr84p48gsyt85" path="res://scenes/player_controller/states/idle_movement_state.gd" id="6_7124t"]
-[ext_resource type="Script" uid="uid://cmku21m2xg7h5" path="res://scripts/classes/components/resource_component.gd" id="7_e0u4p"]
 [ext_resource type="Script" uid="uid://ctl3bat25rwmy" path="res://scenes/player_controller/states/walk_movement_state.gd" id="7_yuslv"]
 [ext_resource type="Script" uid="uid://cmud7br6t8wyh" path="res://scenes/player_controller/states/jump_movement_state.gd" id="8_l1ug8"]
 [ext_resource type="Script" uid="uid://dc645jcp4npln" path="res://scenes/player_controller/states/sprint_movement_state.gd" id="9_rle0t"]
 [ext_resource type="Script" uid="uid://d21a476f7gqoe" path="res://scenes/player_controller/states/fall_movement_state.gd" id="11_cbd6p"]
-[ext_resource type="Script" uid="uid://b3vcyv3niknj1" path="res://scripts/classes/components/statemachine/state.gd" id="11_up0t1"]
+[ext_resource type="Script" uid="uid://boa5aek3052y7" path="res://scenes/player_controller/action_states/arms_down_state.gd" id="12_352f5"]
 [ext_resource type="Script" uid="uid://jb2bev1wf8xk" path="res://scenes/user_interface/dynamic_debug/dyn_debug.gd" id="12_d8xub"]
 [ext_resource type="Theme" uid="uid://cw8h33xv1acv0" path="res://scenes/user_interface/dynamic_debug/dyn_debug.theme" id="12_vfo37"]
+[ext_resource type="Script" uid="uid://b4ya6orjvqgra" path="res://scenes/player_controller/arms_up_empty_state.gd" id="13_ei0lf"]
+[ext_resource type="Script" uid="uid://cnk0orkb83gkb" path="res://scenes/player_controller/arms_up_full_state.gd" id="14_qkilv"]
 [ext_resource type="Script" uid="uid://cvettagbosn47" path="res://scripts/classes/components/save_component.gd" id="15_rle0t"]
 [ext_resource type="Script" uid="uid://deue4g7pyxjfe" path="res://scenes/user_interface/pause_menu/pause_container.gd" id="17_2e7vo"]
 [ext_resource type="Theme" uid="uid://b6ervg8w45oc6" path="res://assets/main_theme.theme" id="17_352f5"]
@@ -85,29 +86,23 @@ deceleration = 0.2
 script = ExtResource("11_cbd6p")
 metadata/_custom_type_script = "uid://b3vcyv3niknj1"
 
-[node name="WeaponStateMachine" type="Node" parent="." unique_id=1914343710 node_paths=PackedStringArray("current_state")]
+[node name="ActionStateMachine" type="Node" parent="." unique_id=1784798451 node_paths=PackedStringArray("current_state")]
 script = ExtResource("4_e0u4p")
-current_state = NodePath("IdleWeaponState")
+current_state = NodePath("ArmsDownState")
+debug = true
 metadata/_custom_type_script = "uid://d37bkrw4sle3v"
 
-[node name="IdleWeaponState" type="Node" parent="WeaponStateMachine" unique_id=825181439]
-script = ExtResource("11_up0t1")
+[node name="ArmsDownState" type="Node" parent="ActionStateMachine" unique_id=1128646407]
+script = ExtResource("12_352f5")
 metadata/_custom_type_script = "uid://b3vcyv3niknj1"
 
-[node name="FireWeaponState" type="Node" parent="WeaponStateMachine" unique_id=1746503022]
-script = ExtResource("11_up0t1")
+[node name="ArmsUpEmptyState" type="Node" parent="ActionStateMachine" unique_id=1596716479]
+script = ExtResource("13_ei0lf")
 metadata/_custom_type_script = "uid://b3vcyv3niknj1"
 
-[node name="ReloadWeaponState" type="Node" parent="WeaponStateMachine" unique_id=662817216]
-script = ExtResource("11_up0t1")
+[node name="ArmsUpFullState" type="Node" parent="ActionStateMachine" unique_id=681034161]
+script = ExtResource("14_qkilv")
 metadata/_custom_type_script = "uid://b3vcyv3niknj1"
-
-[node name="BlockWeaponState" type="Node" parent="WeaponStateMachine" unique_id=1540430870]
-script = ExtResource("11_up0t1")
-metadata/_custom_type_script = "uid://b3vcyv3niknj1"
-
-[node name="ResourceComponent" type="Node" parent="." unique_id=1847652360]
-script = ExtResource("7_e0u4p")
 
 [node name="SaveComponent" type="Node" parent="." unique_id=1053471751]
 script = ExtResource("15_rle0t")
