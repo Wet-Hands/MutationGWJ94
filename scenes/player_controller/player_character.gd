@@ -20,15 +20,15 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	dyn_debug.update_value("FPS", str(Engine.get_frames_per_second()))
-	%SubCam.set_global_transform($CameraController/Camera3D.global_transform)
 
 func update_rotation(rotation_input) -> void:
 	global_transform.basis = Basis.from_euler(rotation_input)
+	%SubCam.set_global_transform($CameraController/Camera3D.global_transform)
 
 func update_gravity(delta : float) -> void:
 	velocity += get_gravity() * delta
 
-func update_input(speed : float, acceleration : float, deceleration : float) -> void:
+func update_input(delta: float, speed: float, acceleration: float, deceleration: float) -> void:
 	# If Player presses Pause, Pause Game
 	if Input.is_action_just_pressed("pause"):
 		set_pause_container(!is_paused)
@@ -48,9 +48,9 @@ func update_input(speed : float, acceleration : float, deceleration : float) -> 
 	direction = (transform.basis * Vector3(_input_dir.x, 0, _input_dir.y)).normalized()
 	
 	if direction:
-		current_velocity = lerp(current_velocity, Vector2(direction.x, direction.z) * speed, acceleration)
+		current_velocity = lerp(current_velocity, Vector2(direction.x, direction.z) * speed, acceleration * delta)
 	else:
-		current_velocity = current_velocity.move_toward(Vector2.ZERO, deceleration)
+		current_velocity = current_velocity.move_toward(Vector2.ZERO, deceleration * delta)
 	
 	_movement_velocity = Vector3(current_velocity.x, velocity.y, current_velocity.y)
 	velocity = _movement_velocity
@@ -60,6 +60,18 @@ func update_input(speed : float, acceleration : float, deceleration : float) -> 
 
 func update_velocity() -> void:
 	move_and_slide()
+	_handle_rigidbody_push()
+
+@export var push_force : float = 5.0
+
+func _handle_rigidbody_push() -> void:
+	for i in get_slide_collision_count():
+		var collision = get_slide_collision(i)
+		var collider = collision.get_collider()
+
+		if collider is RigidBody3D:
+			var push_dir = -collision.get_normal()
+			collider.apply_impulse(push_dir * push_force, collision.get_position() - collider.global_position)
 
 func set_pause_container(on : bool) -> void:
 		is_paused = on

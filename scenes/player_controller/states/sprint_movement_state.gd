@@ -13,7 +13,7 @@ func _exit() -> void:
 
 func _update(delta : float) -> void:
 	target.update_gravity(delta)
-	target.update_input(speed, acceleration, deceleration)
+	target.update_input(delta, speed, acceleration, deceleration)
 	target.update_velocity()
 	
 	if Input.is_action_just_released("sprint"):

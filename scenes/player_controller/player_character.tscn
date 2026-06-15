@@ -7,23 +7,47 @@
 [ext_resource type="Script" uid="uid://cgg8v6mqlww17" path="res://scripts/classes/components/audio_component.gd" id="3_qcfe0"]
 [ext_resource type="Script" uid="uid://d37bkrw4sle3v" path="res://scripts/classes/components/statemachine/state_machine.gd" id="4_e0u4p"]
 [ext_resource type="Script" uid="uid://cr84p48gsyt85" path="res://scenes/player_controller/states/idle_movement_state.gd" id="6_7124t"]
+[ext_resource type="Texture2D" uid="uid://dxq8o42wktc1b" path="res://assets/crosshair060.png" id="7_ne2jy"]
 [ext_resource type="Script" uid="uid://ctl3bat25rwmy" path="res://scenes/player_controller/states/walk_movement_state.gd" id="7_yuslv"]
 [ext_resource type="Script" uid="uid://cmud7br6t8wyh" path="res://scenes/player_controller/states/jump_movement_state.gd" id="8_l1ug8"]
 [ext_resource type="Script" uid="uid://dc645jcp4npln" path="res://scenes/player_controller/states/sprint_movement_state.gd" id="9_rle0t"]
+[ext_resource type="Texture2D" uid="uid://c138b2y0l6u4b" path="res://assets/textures/metal/Metal046A_2K-PNG_Color.png" id="9_u6pej"]
+[ext_resource type="Texture2D" uid="uid://bleyyj0udyy77" path="res://assets/textures/metal/Metal046A_2K-PNG_Metalness.png" id="10_ne2jy"]
+[ext_resource type="Texture2D" uid="uid://3j816calrnr6" path="res://assets/textures/metal/Metal046A_2K-PNG_NormalGL.png" id="11_54a5o"]
 [ext_resource type="Script" uid="uid://d21a476f7gqoe" path="res://scenes/player_controller/states/fall_movement_state.gd" id="11_cbd6p"]
+[ext_resource type="Texture2D" uid="uid://vocewyaywaco" path="res://assets/textures/metal/Metal046A_2K-PNG_Roughness.png" id="12_2iaam"]
 [ext_resource type="Script" uid="uid://boa5aek3052y7" path="res://scenes/player_controller/action_states/arms_down_state.gd" id="12_352f5"]
 [ext_resource type="Script" uid="uid://jb2bev1wf8xk" path="res://scenes/user_interface/dynamic_debug/dyn_debug.gd" id="12_d8xub"]
 [ext_resource type="Theme" uid="uid://cw8h33xv1acv0" path="res://scenes/user_interface/dynamic_debug/dyn_debug.theme" id="12_vfo37"]
 [ext_resource type="Script" uid="uid://b4ya6orjvqgra" path="res://scenes/player_controller/arms_up_empty_state.gd" id="13_ei0lf"]
+[ext_resource type="Material" uid="uid://sfarus02os2e" path="res://assets/textures/metal/unit.tres" id="14_54a5o"]
 [ext_resource type="Script" uid="uid://cnk0orkb83gkb" path="res://scenes/player_controller/arms_up_full_state.gd" id="14_qkilv"]
-[ext_resource type="Script" uid="uid://cvettagbosn47" path="res://scripts/classes/components/save_component.gd" id="15_rle0t"]
 [ext_resource type="Script" uid="uid://deue4g7pyxjfe" path="res://scenes/user_interface/pause_menu/pause_container.gd" id="17_2e7vo"]
 [ext_resource type="Theme" uid="uid://b6ervg8w45oc6" path="res://assets/main_theme.theme" id="17_352f5"]
 [ext_resource type="PackedScene" uid="uid://bphnrscffr1qw" path="res://scenes/user_interface/settings_menu/settings_container.tscn" id="18_qb57j"]
+[ext_resource type="Script" uid="uid://brgktux31agvv" path="res://scripts/classes/components/interaction_component.gd" id="25_ne2jy"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6wvwh"]
+albedo_texture = ExtResource("9_u6pej")
+metallic = 1.0
+metallic_texture = ExtResource("10_ne2jy")
+roughness_texture = ExtResource("12_2iaam")
+normal_enabled = true
+normal_texture = ExtResource("11_54a5o")
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_ei0lf"]
+material = SubResource("StandardMaterial3D_6wvwh")
+radius = 0.125
+height = 1.0
+radial_segments = 4
+rings = 2
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_54a5o"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_sxs1x"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_uxcjg"]
+material = ExtResource("14_54a5o")
 radial_segments = 6
 rings = 4
 
@@ -31,6 +55,7 @@ rings = 4
 script = ExtResource("1_uxcjg")
 dyn_debug = NodePath("CanvasLayer/PanelContainer/MarginContainer/DynDebug")
 health_component = NodePath("HealthComponent")
+push_force = 3.0
 
 [node name="SubCam" type="CanvasLayer" parent="." unique_id=235048460]
 
@@ -42,93 +67,19 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="SubViewport" type="SubViewport" parent="SubCam/SubViewportContainer" unique_id=602864483]
+transparent_bg = true
+handle_input_locally = false
 size = Vector2i(480, 333)
+render_target_update_mode = 4
 
 [node name="SubCam" type="Camera3D" parent="SubCam/SubViewportContainer/SubViewport" unique_id=1597047820]
 unique_name_in_owner = true
 cull_mask = 524288
 
-[node name="AnalogCaptureComponent" type="Node" parent="." unique_id=2047711409]
-script = ExtResource("2_qcfe0")
-mouse_sensitivity = 0.002
-
-[node name="CameraController" type="Node3D" parent="." unique_id=542328594 node_paths=PackedStringArray("player_controller", "analog_component", "health_component")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
-script = ExtResource("3_dftnd")
-player_controller = NodePath("..")
-analog_component = NodePath("../AnalogCaptureComponent")
-health_component = NodePath("../HealthComponent")
-
-[node name="Camera3D" type="Camera3D" parent="CameraController" unique_id=1082948660]
-cull_mask = 524287
-current = true
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1761820767]
-shape = SubResource("CapsuleShape3D_sxs1x")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=2059713719]
-mesh = SubResource("CapsuleMesh_uxcjg")
-
-[node name="HealthComponent" type="Node" parent="." unique_id=1359474358]
-script = ExtResource("2_cx3q3")
-
-[node name="AudioComponent" type="Node" parent="." unique_id=2109542332]
-script = ExtResource("3_qcfe0")
-
-[node name="MovementStateMachine" type="Node" parent="." unique_id=1717729769 node_paths=PackedStringArray("dyn_debug", "current_state")]
-script = ExtResource("4_e0u4p")
-dyn_debug = NodePath("../CanvasLayer/PanelContainer/MarginContainer/DynDebug")
-current_state = NodePath("WalkMovementState")
-
-[node name="IdleMovementState" type="Node" parent="MovementStateMachine" unique_id=1879189851]
-script = ExtResource("6_7124t")
-
-[node name="WalkMovementState" type="Node" parent="MovementStateMachine" unique_id=896924466]
-script = ExtResource("7_yuslv")
-speed = 6.0
-acceleration = 0.2
-deceleration = 0.2
-
-[node name="SprintMovementState" type="Node" parent="MovementStateMachine" unique_id=727442010]
-script = ExtResource("9_rle0t")
-speed = 9.0
-metadata/_custom_type_script = "uid://b3vcyv3niknj1"
-
-[node name="JumpMovementState" type="Node" parent="MovementStateMachine" unique_id=1799454410]
-script = ExtResource("8_l1ug8")
-speed = 5.0
-acceleration = 0.2
-deceleration = 0.2
-
-[node name="FallMovementState" type="Node" parent="MovementStateMachine" unique_id=162314680]
-script = ExtResource("11_cbd6p")
-metadata/_custom_type_script = "uid://b3vcyv3niknj1"
-
-[node name="ActionStateMachine" type="Node" parent="." unique_id=1784798451 node_paths=PackedStringArray("current_state")]
-script = ExtResource("4_e0u4p")
-current_state = NodePath("ArmsDownState")
-debug = true
-metadata/_custom_type_script = "uid://d37bkrw4sle3v"
-
-[node name="ArmsDownState" type="Node" parent="ActionStateMachine" unique_id=1128646407]
-script = ExtResource("12_352f5")
-metadata/_custom_type_script = "uid://b3vcyv3niknj1"
-
-[node name="ArmsUpEmptyState" type="Node" parent="ActionStateMachine" unique_id=1596716479]
-script = ExtResource("13_ei0lf")
-metadata/_custom_type_script = "uid://b3vcyv3niknj1"
-
-[node name="ArmsUpFullState" type="Node" parent="ActionStateMachine" unique_id=681034161]
-script = ExtResource("14_qkilv")
-metadata/_custom_type_script = "uid://b3vcyv3niknj1"
-
-[node name="SaveComponent" type="Node" parent="." unique_id=1053471751]
-script = ExtResource("15_rle0t")
-metadata/_custom_type_script = "uid://cvettagbosn47"
-
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1338374917]
 
 [node name="PanelContainer" type="PanelContainer" parent="CanvasLayer" unique_id=1933705333]
+visible = false
 offset_right = 168.0
 offset_bottom = 134.0
 theme = ExtResource("12_vfo37")
@@ -206,3 +157,134 @@ visible = false
 layout_mode = 2
 control_container = NodePath("../../..")
 main_container = NodePath("../MainContainer")
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer" unique_id=715009111]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -27.0
+offset_top = -27.5
+offset_right = 45.0
+offset_bottom = 44.5
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("7_ne2jy")
+
+[node name="AnalogCaptureComponent" type="Node" parent="." unique_id=2047711409]
+script = ExtResource("2_qcfe0")
+mouse_sensitivity = 0.001
+
+[node name="CameraController" type="Node3D" parent="." unique_id=542328594 node_paths=PackedStringArray("player_controller", "analog_component", "health_component")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+script = ExtResource("3_dftnd")
+player_controller = NodePath("..")
+analog_component = NodePath("../AnalogCaptureComponent")
+health_component = NodePath("../HealthComponent")
+
+[node name="Camera3D" type="Camera3D" parent="CameraController" unique_id=1082948660]
+cull_mask = 524287
+current = true
+
+[node name="ArmsNode" type="Node3D" parent="CameraController/Camera3D" unique_id=1012372868]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+
+[node name="RightArm" type="MeshInstance3D" parent="CameraController/Camera3D/ArmsNode" unique_id=756314135]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.5, 0)
+layers = 524288
+mesh = SubResource("CapsuleMesh_ei0lf")
+
+[node name="LeftArm" type="MeshInstance3D" parent="CameraController/Camera3D/ArmsNode" unique_id=2101300566]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0.5, 0)
+layers = 524288
+mesh = SubResource("CapsuleMesh_ei0lf")
+
+[node name="RayCast3D" type="RayCast3D" parent="CameraController/Camera3D" unique_id=2007786307]
+target_position = Vector3(0, 0, -2)
+
+[node name="Marker3D" type="Marker3D" parent="CameraController/Camera3D" unique_id=39304289]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2)
+
+[node name="Area3D" type="Area3D" parent="CameraController/Camera3D" unique_id=796668009]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.5)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CameraController/Camera3D/Area3D" unique_id=1491402318]
+shape = SubResource("BoxShape3D_54a5o")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1761820767]
+shape = SubResource("CapsuleShape3D_sxs1x")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=2059713719]
+mesh = SubResource("CapsuleMesh_uxcjg")
+
+[node name="HealthComponent" type="Node" parent="." unique_id=1359474358]
+script = ExtResource("2_cx3q3")
+
+[node name="AudioComponent" type="Node" parent="." unique_id=2109542332]
+script = ExtResource("3_qcfe0")
+
+[node name="MovementStateMachine" type="Node" parent="." unique_id=1717729769 node_paths=PackedStringArray("dyn_debug", "current_state")]
+script = ExtResource("4_e0u4p")
+dyn_debug = NodePath("../CanvasLayer/PanelContainer/MarginContainer/DynDebug")
+current_state = NodePath("WalkMovementState")
+
+[node name="IdleMovementState" type="Node" parent="MovementStateMachine" unique_id=1879189851]
+script = ExtResource("6_7124t")
+acceleration = 5.0
+deceleration = 11.0
+
+[node name="WalkMovementState" type="Node" parent="MovementStateMachine" unique_id=896924466]
+script = ExtResource("7_yuslv")
+speed = 6.0
+acceleration = 5.0
+deceleration = 11.0
+
+[node name="SprintMovementState" type="Node" parent="MovementStateMachine" unique_id=727442010]
+script = ExtResource("9_rle0t")
+speed = 9.0
+acceleration = 5.0
+deceleration = 11.0
+metadata/_custom_type_script = "uid://b3vcyv3niknj1"
+
+[node name="JumpMovementState" type="Node" parent="MovementStateMachine" unique_id=1799454410]
+script = ExtResource("8_l1ug8")
+speed = 5.0
+acceleration = 5.0
+deceleration = 11.0
+
+[node name="FallMovementState" type="Node" parent="MovementStateMachine" unique_id=162314680]
+script = ExtResource("11_cbd6p")
+acceleration = 5.0
+deceleration = 11.0
+metadata/_custom_type_script = "uid://b3vcyv3niknj1"
+
+[node name="ActionStateMachine" type="Node" parent="." unique_id=1784798451 node_paths=PackedStringArray("current_state")]
+script = ExtResource("4_e0u4p")
+current_state = NodePath("ArmsDownState")
+debug = true
+metadata/_custom_type_script = "uid://d37bkrw4sle3v"
+
+[node name="ArmsDownState" type="Node" parent="ActionStateMachine" unique_id=1128646407 node_paths=PackedStringArray("arms_node", "ray")]
+script = ExtResource("12_352f5")
+arms_node = NodePath("../../CameraController/Camera3D/ArmsNode")
+ray = NodePath("../../CameraController/Camera3D/RayCast3D")
+metadata/_custom_type_script = "uid://b3vcyv3niknj1"
+
+[node name="ArmsUpFullState" type="Node" parent="ActionStateMachine" unique_id=681034161 node_paths=PackedStringArray("arms_node", "marker", "area")]
+script = ExtResource("14_qkilv")
+arms_node = NodePath("../../CameraController/Camera3D/ArmsNode")
+marker = NodePath("../../CameraController/Camera3D/Marker3D")
+area = NodePath("../../CameraController/Camera3D/Area3D")
+metadata/_custom_type_script = "uid://b3vcyv3niknj1"
+
+[node name="ArmsUpEmptyState" type="Node" parent="ActionStateMachine" unique_id=1596716479 node_paths=PackedStringArray("arms_node")]
+script = ExtResource("13_ei0lf")
+arms_node = NodePath("../../CameraController/Camera3D/ArmsNode")
+metadata/_custom_type_script = "uid://b3vcyv3niknj1"
+
+[node name="InteractionComponent" type="Node" parent="." unique_id=131564029 node_paths=PackedStringArray("raycast")]
+script = ExtResource("25_ne2jy")
+raycast = NodePath("../CameraController/Camera3D/RayCast3D")
+metadata/_custom_type_script = "uid://brgktux31agvv"
