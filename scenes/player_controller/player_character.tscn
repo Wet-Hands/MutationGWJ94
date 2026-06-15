@@ -32,6 +32,22 @@ script = ExtResource("1_uxcjg")
 dyn_debug = NodePath("CanvasLayer/PanelContainer/MarginContainer/DynDebug")
 health_component = NodePath("HealthComponent")
 
+[node name="SubCam" type="CanvasLayer" parent="." unique_id=235048460]
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="SubCam" unique_id=1704702125]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SubViewport" type="SubViewport" parent="SubCam/SubViewportContainer" unique_id=602864483]
+size = Vector2i(480, 333)
+
+[node name="SubCam" type="Camera3D" parent="SubCam/SubViewportContainer/SubViewport" unique_id=1597047820]
+unique_name_in_owner = true
+cull_mask = 524288
+
 [node name="AnalogCaptureComponent" type="Node" parent="." unique_id=2047711409]
 script = ExtResource("2_qcfe0")
 mouse_sensitivity = 0.002
@@ -44,6 +60,8 @@ analog_component = NodePath("../AnalogCaptureComponent")
 health_component = NodePath("../HealthComponent")
 
 [node name="Camera3D" type="Camera3D" parent="CameraController" unique_id=1082948660]
+cull_mask = 524287
+current = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1761820767]
 shape = SubResource("CapsuleShape3D_sxs1x")

@@ -20,6 +20,7 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	dyn_debug.update_value("FPS", str(Engine.get_frames_per_second()))
+	%SubCam.set_global_transform($CameraController/Camera3D.global_transform)
 
 func update_rotation(rotation_input) -> void:
 	global_transform.basis = Basis.from_euler(rotation_input)
