@@ -20,10 +20,6 @@ func _update(delta : float) -> void:
 		transition.emit("WalkMovementState")
 		return
 
-	if Input.is_action_just_pressed("jump"):
-		transition.emit("JumpMovementState")
-		return
-
 	if target.velocity.length() <= 0.0:
 		transition.emit("IdleMovementState")
 		return

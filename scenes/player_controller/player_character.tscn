@@ -9,12 +9,12 @@
 [ext_resource type="Script" uid="uid://cr84p48gsyt85" path="res://scenes/player_controller/states/idle_movement_state.gd" id="6_7124t"]
 [ext_resource type="Texture2D" uid="uid://dxq8o42wktc1b" path="res://assets/crosshair060.png" id="7_ne2jy"]
 [ext_resource type="Script" uid="uid://ctl3bat25rwmy" path="res://scenes/player_controller/states/walk_movement_state.gd" id="7_yuslv"]
-[ext_resource type="Script" uid="uid://cmud7br6t8wyh" path="res://scenes/player_controller/states/jump_movement_state.gd" id="8_l1ug8"]
+[ext_resource type="Shader" uid="uid://bi82c10xqlf0m" path="res://assets/shaders/cam.gdshader" id="8_2iaam"]
+[ext_resource type="FontFile" uid="uid://b7s3mrg8edfuq" path="res://assets/font/VCR_OSD_MONO_1.001.ttf" id="8_6wvwh"]
 [ext_resource type="Script" uid="uid://dc645jcp4npln" path="res://scenes/player_controller/states/sprint_movement_state.gd" id="9_rle0t"]
 [ext_resource type="Texture2D" uid="uid://c138b2y0l6u4b" path="res://assets/textures/metal/Metal046A_2K-PNG_Color.png" id="9_u6pej"]
 [ext_resource type="Texture2D" uid="uid://bleyyj0udyy77" path="res://assets/textures/metal/Metal046A_2K-PNG_Metalness.png" id="10_ne2jy"]
 [ext_resource type="Texture2D" uid="uid://3j816calrnr6" path="res://assets/textures/metal/Metal046A_2K-PNG_NormalGL.png" id="11_54a5o"]
-[ext_resource type="Script" uid="uid://d21a476f7gqoe" path="res://scenes/player_controller/states/fall_movement_state.gd" id="11_cbd6p"]
 [ext_resource type="Texture2D" uid="uid://vocewyaywaco" path="res://assets/textures/metal/Metal046A_2K-PNG_Roughness.png" id="12_2iaam"]
 [ext_resource type="Script" uid="uid://boa5aek3052y7" path="res://scenes/player_controller/action_states/arms_down_state.gd" id="12_352f5"]
 [ext_resource type="Script" uid="uid://jb2bev1wf8xk" path="res://scenes/user_interface/dynamic_debug/dyn_debug.gd" id="12_d8xub"]
@@ -26,6 +26,25 @@
 [ext_resource type="Theme" uid="uid://b6ervg8w45oc6" path="res://assets/main_theme.theme" id="17_352f5"]
 [ext_resource type="PackedScene" uid="uid://bphnrscffr1qw" path="res://scenes/user_interface/settings_menu/settings_container.tscn" id="18_qb57j"]
 [ext_resource type="Script" uid="uid://brgktux31agvv" path="res://scripts/classes/components/interaction_component.gd" id="25_ne2jy"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_dfcpc"]
+font = ExtResource("8_6wvwh")
+font_size = 18
+outline_size = 4
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6wvwh"]
+shader = ExtResource("8_2iaam")
+shader_parameter/smearing = 0.2000000095
+shader_parameter/color_offset = 1.6299399954733396e-09
+shader_parameter/sharpening = 0.4
+shader_parameter/static_noise = 0.08
+shader_parameter/crack_center = Vector2(0.15, 0.85)
+shader_parameter/crack_intensity = 0.0
+shader_parameter/crack_size = 0.0
+shader_parameter/vertical_jitter = 0.002
+shader_parameter/scanline_opacity = 0.1
+shader_parameter/vignette_intensity = 0.3
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6wvwh"]
 albedo_texture = ExtResource("9_u6pej")
@@ -55,7 +74,7 @@ rings = 4
 script = ExtResource("1_uxcjg")
 dyn_debug = NodePath("CanvasLayer/PanelContainer/MarginContainer/DynDebug")
 health_component = NodePath("HealthComponent")
-push_force = 3.0
+push_force = 1.0
 
 [node name="SubCam" type="CanvasLayer" parent="." unique_id=235048460]
 
@@ -77,6 +96,21 @@ unique_name_in_owner = true
 cull_mask = 524288
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1338374917]
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer" unique_id=715009111]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -18.0
+offset_top = -18.5
+offset_right = 54.0
+offset_bottom = 53.5
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_ne2jy")
 
 [node name="PanelContainer" type="PanelContainer" parent="CanvasLayer" unique_id=1933705333]
 visible = false
@@ -130,7 +164,7 @@ layout_mode = 2
 [node name="Label" type="Label" parent="CanvasLayer/PauseContainer/PanelContainer/MarginContainer/MainContainer" unique_id=1091779741]
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
-text = "Daybuilt BaseGodotProject3D"
+text = "RED CUBE FACTORY"
 horizontal_alignment = 1
 
 [node name="Label2" type="Label" parent="CanvasLayer/PauseContainer/PanelContainer/MarginContainer/MainContainer" unique_id=2060704302]
@@ -139,7 +173,11 @@ theme_override_font_sizes/font_size = 18
 text = "Pause Menu"
 horizontal_alignment = 1
 
-[node name="Settings" type="Button" parent="CanvasLayer/PauseContainer/PanelContainer/MarginContainer/MainContainer" unique_id=299468614]
+[node name="Resume" type="Button" parent="CanvasLayer/PauseContainer/PanelContainer/MarginContainer/MainContainer" unique_id=299468614]
+layout_mode = 2
+text = "Resume"
+
+[node name="Settings" type="Button" parent="CanvasLayer/PauseContainer/PanelContainer/MarginContainer/MainContainer" unique_id=1448055629]
 layout_mode = 2
 text = "Settings"
 
@@ -158,20 +196,47 @@ layout_mode = 2
 control_container = NodePath("../../..")
 main_container = NodePath("../MainContainer")
 
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer" unique_id=715009111]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -27.0
-offset_top = -27.5
-offset_right = 45.0
-offset_bottom = 44.5
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer" unique_id=1374199635]
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 136.0
+offset_bottom = 54.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/VBoxContainer" unique_id=1107719816]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/VBoxContainer/HBoxContainer" unique_id=1460873230]
+layout_mode = 2
+text = "UNIT SHAPE: "
+label_settings = SubResource("LabelSettings_dfcpc")
+
+[node name="UnitShape" type="Label" parent="CanvasLayer/VBoxContainer/HBoxContainer" unique_id=1817542382]
+unique_name_in_owner = true
+layout_mode = 2
+label_settings = SubResource("LabelSettings_dfcpc")
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="CanvasLayer/VBoxContainer" unique_id=1654359087]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/VBoxContainer/HBoxContainer2" unique_id=529508625]
+layout_mode = 2
+text = "UNIT COLOR: "
+label_settings = SubResource("LabelSettings_dfcpc")
+
+[node name="UnitColor" type="Label" parent="CanvasLayer/VBoxContainer/HBoxContainer2" unique_id=88668563]
+unique_name_in_owner = true
+layout_mode = 2
+label_settings = SubResource("LabelSettings_dfcpc")
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer" unique_id=1169726836]
+visibility_layer = 524289
+material = SubResource("ShaderMaterial_6wvwh")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-scale = Vector2(0.75, 0.75)
-texture = ExtResource("7_ne2jy")
+mouse_filter = 2
 
 [node name="AnalogCaptureComponent" type="Node" parent="." unique_id=2047711409]
 script = ExtResource("2_qcfe0")
@@ -213,6 +278,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.5)
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CameraController/Camera3D/Area3D" unique_id=1491402318]
 shape = SubResource("BoxShape3D_54a5o")
 
+[node name="SpotLight3D" type="SpotLight3D" parent="CameraController/Camera3D" unique_id=653447164]
+spot_range = 3.7539115
+spot_angle = 23.61582
+
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1761820767]
 shape = SubResource("CapsuleShape3D_sxs1x")
 
@@ -244,18 +313,6 @@ deceleration = 11.0
 [node name="SprintMovementState" type="Node" parent="MovementStateMachine" unique_id=727442010]
 script = ExtResource("9_rle0t")
 speed = 9.0
-acceleration = 5.0
-deceleration = 11.0
-metadata/_custom_type_script = "uid://b3vcyv3niknj1"
-
-[node name="JumpMovementState" type="Node" parent="MovementStateMachine" unique_id=1799454410]
-script = ExtResource("8_l1ug8")
-speed = 5.0
-acceleration = 5.0
-deceleration = 11.0
-
-[node name="FallMovementState" type="Node" parent="MovementStateMachine" unique_id=162314680]
-script = ExtResource("11_cbd6p")
 acceleration = 5.0
 deceleration = 11.0
 metadata/_custom_type_script = "uid://b3vcyv3niknj1"

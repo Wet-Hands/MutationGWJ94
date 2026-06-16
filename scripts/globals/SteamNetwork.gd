@@ -12,8 +12,8 @@ signal peer_connected
 signal peer_disconnected
 
 func _ready() -> void:
-	print("Steam Initialized: ", Steam.steamInit(480, true))
-	Steam.initRelayNetworkAccess()
+	#print("Steam Initialized: ", Steam.steamInit(480, true))
+	#Steam.initRelayNetworkAccess()
 	Steam.lobby_created.connect(_on_lobby_created)
 	Steam.lobby_joined.connect(_on_lobby_joined)
 

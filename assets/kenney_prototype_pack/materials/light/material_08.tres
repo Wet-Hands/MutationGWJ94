@@ -1,10 +1,18 @@
 [gd_resource type="StandardMaterial3D" format=3 uid="uid://cg0b401okvr4w"]
 
-[ext_resource type="Texture2D" uid="uid://de403w2nnawrs" path="res://assets/kenney_prototype_pack/textures/light/texture_08.png" id="1_fxli5"]
+[ext_resource type="Texture2D" uid="uid://dgvtar2vsfr0j" path="res://ambientcg/extracted/DiamondPlate008C_1K-JPG/DiamondPlate008C_1K-JPG_Color.jpg" id="1_5lx1r"]
+[ext_resource type="Texture2D" uid="uid://cgwkr3omcwu6w" path="res://ambientcg/extracted/DiamondPlate008C_1K-JPG/DiamondPlate008C_1K-JPG_Metalness.jpg" id="2_l1d7j"]
+[ext_resource type="Texture2D" uid="uid://bev10c4rtyhil" path="res://ambientcg/extracted/DiamondPlate008C_1K-JPG/DiamondPlate008C_1K-JPG_NormalGL.jpg" id="3_7385r"]
+[ext_resource type="Texture2D" uid="uid://cev17kchfmdhs" path="res://ambientcg/extracted/DiamondPlate008C_1K-JPG/DiamondPlate008C_1K-JPG_Roughness.jpg" id="4_4cb6q"]
 
 [resource]
 vertex_color_is_srgb = true
-albedo_texture = ExtResource("1_fxli5")
+albedo_texture = ExtResource("1_5lx1r")
+metallic = 1.0
+metallic_texture = ExtResource("2_l1d7j")
+roughness_texture = ExtResource("4_4cb6q")
+normal_enabled = true
+normal_texture = ExtResource("3_7385r")
 uv1_triplanar = true
 uv1_world_triplanar = true
 texture_filter = 5
